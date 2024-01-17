@@ -1,0 +1,63 @@
+{
+  "family": "__MODULE__",
+  "cpu": "__CPU__",
+  "memory": "__MEM__",
+  "containerDefinitions": [
+    {
+      "image": "__REPO_DOMAIN__/__REPO_URL__:__IMAGE_TAG__",
+      "name": "__MODULE__",
+      "environment": [
+        {
+          "name": "REGION",
+          "value": "__REGION__"
+        },
+        {
+          "name": "ENV",
+          "value": "__ENV__"
+        },
+        {
+          "name": "VERSION",
+          "value": "__IMAGE_TAG__"
+        }
+      ],
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-create-group": "true",
+          "awslogs-group": "__LOG_GROUP__",
+          "awslogs-region": "__REGION__",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "ulimits": [
+        {
+          "name": "nofile",
+          "softLimit": 65535,
+          "hardLimit": 65535
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "essential": true,
+      "disableNetworking": false,
+      "privileged": false
+    }
+  ],
+  "taskRoleArn": "__ROLE_TASK__",
+  "executionRoleArn": "__ROLE_EXEC__",
+  "networkMode": "awsvpc",
+  "runtimePlatform": {
+    "operatingSystemFamily": "LINUX",
+    "cpuArchitecture": "X86_64"
+  },
+  "requiresCompatibilities": [
+    "FARGATE"
+  ]
+}
